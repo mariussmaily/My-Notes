@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "592013171584",
+    "project_id": "mynotes-razvan",
+    "storage_bucket": "mynotes-razvan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592013171584:android:5a318b492686f029eabf65",
+        "android_client_info": {
+          "package_name": "se.pixolity.mynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592013171584-9o7s15h6l53oko4veg8vfjjg9bgb0la3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl5UM5QNaLQrOGESQIciB1ZyW_nPA2L0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592013171584-9o7s15h6l53oko4veg8vfjjg9bgb0la3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "592013171584-8vl9ppusu8c7f0n1puhf531juom6ocss.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "se.pixolity.mynotes"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
