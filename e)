@@ -1,0 +1,146 @@
+[1mdiff --git a/lib/main.dart b/lib/main.dart[m
+[1mindex b831931..bdfb7ad 100644[m
+[1m--- a/lib/main.dart[m
+[1m+++ b/lib/main.dart[m
+[36m@@ -5,10 +5,10 @@[m [mimport 'package:mynotes/views/login_views.dart';[m
+ import 'package:mynotes/views/register_view.dart';[m
+ import 'package:mynotes/views/verify_email_view.dart';[m
+ import 'firebase_options.dart';[m
+[32m+[m[32mimport 'dart:developer' as devtools show log;[m
+ [m
+ void main() {[m
+   WidgetsFlutterBinding.ensureInitialized();[m
+[31m-[m
+   runApp([m
+     MaterialApp([m
+       title: 'Flutter Demo',[m
+[36m@@ -38,15 +38,13 @@[m [mclass HomePage extends StatelessWidget {[m
+             final user = FirebaseAuth.instance.currentUser;[m
+             if (user != null) {[m
+               if (user.emailVerified) {[m
+[31m-              print('Email is verified');[m
+[31m-              } else{[m
+[32m+[m[32m                return const NotesView();[m
+[32m+[m[32m              } else {[m
+                 return const VerifyEmailView();[m
+[31m-              } [m
+[31m-            }else{[m
+[32m+[m[32m              }[m
+[32m+[m[32m            } else {[m
+               return const LoginView();[m
+             }[m
+[31m-            return const Text('Done');[m
+[31m-            [m
+           default:[m
+             return const CircularProgressIndicator();[m
+         }[m
+[36m@@ -54,3 +52,75 @@[m [mclass HomePage extends StatelessWidget {[m
+     );[m
+   }[m
+ }[m
+[32m+[m
+[32m+[m[32menum MenuAction { logout }[m
+[32m+[m
+[32m+[m[32mclass NotesView extends StatefulWidget {[m
+[32m+[m[32m  const NotesView({Key? key}) : super(key: key);[m
+[32m+[m
+[32m+[m[32m  @override[m
+[32m+[m[32m  _NotesViewState createState() => _NotesViewState();[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mclass _NotesViewState extends State<NotesView> {[m
+[32m+[m[32m  @override[m
+[32m+[m[32m  Widget build(BuildContext context) {[m
+[32m+[m[32m    return Scaffold([m
+[32m+[m[32m      appBar: AppBar([m
+[32m+[m[32m        title: const Text('Main UI'),[m
+[32m+[m[32m        actions: [[m
+[32m+[m[32m          PopupMenuButton<MenuAction>([m
+[32m+[m[32m            onSelected: (value) async {[m
+[32m+[m[32m              switch (value) {[m
+[32m+[m[32m                case MenuAction.logout:[m
+[32m+[m[32m                  final shouldLogout = await showLogOutDialog(context);[m
+[32m+[m[32m                  if (shouldLogout) {[m
+[32m+[m[32m                    await FirebaseAuth.instance.signOut();[m
+[32m+[m[32m                    Navigator.of(context).pushNamedAndRemoveUntil([m
+[32m+[m[32m                      '/login/',[m
+[32m+[m[32m                      (_) => false,[m
+[32m+[m[32m                    );[m
+[32m+[m[32m                  }[m
+[32m+[m[32m              }[m
+[32m+[m[32m            },[m
+[32m+[m[32m            itemBuilder: (context) {[m
+[32m+[m[32m              return const [[m
+[32m+[m[32m                PopupMenuItem<MenuAction>([m
+[32m+[m[32m                  value: MenuAction.logout,[m
+[32m+[m[32m                  child: Text('Log Out'),[m
+[32m+[m[32m                ),[m
+[32m+[m[32m              ];[m
+[32m+[m[32m            },[m
+[32m+[m[32m          )[m
+[32m+[m[32m        ],[m
+[32m+[m[32m      ),[m
+[32m+[m[32m      body: const Text('Hello World'),[m
+[32m+[m[32m    );[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mFuture<bool> showLogOutDialog(BuildContext context) {[m
+[32m+[m[32m  return showDialog<bool>([m
+[32m+[m[32m    context: context,[m
+[32m+[m[32m    builder: (contex) {[m
+[32m+[m[32m      return AlertDialog([m
+[32m+[m[32m        title: const Text('Log out'),[m
+[32m+[m[32m        content: const Text('Are you sure you want to sign out?'),[m
+[32m+[m[32m        actions: [[m
+[32m+[m[32m          TextButton([m
+[32m+[m[32m              onPressed: () {[m
+[32m+[m[32m                Navigator.of(context).pop(true);[m
+[32m+[m[32m              },[m
+[32m+[m[32m              child: const Text('Log out')),[m
+[32m+[m[32m          TextButton([m
+[32m+[m[32m              onPressed: () {[m
+[32m+[m[32m                Navigator.of(context).pop(false);[m
+[32m+[m[32m              },[m
+[32m+[m[32m              child: const Text('Cancel'))[m
+[32m+[m[32m        ],[m
+[32m+[m[32m      );[m
+[32m+[m[32m    },[m
+[32m+[m[32m  ).then([m
+[32m+[m[32m    (value) => value ?? false,[m
+[32m+[m[32m  );[m
+[32m+[m[32m}[m
+[1mdiff --git a/lib/views/verify_email_view.dart b/lib/views/verify_email_view.dart[m
+[1mindex 88bc24b..4397fc3 100644[m
+[1m--- a/lib/views/verify_email_view.dart[m
+[1m+++ b/lib/views/verify_email_view.dart[m
+[36m@@ -1,5 +1,4 @@[m
+ import 'package:firebase_auth/firebase_auth.dart';[m
+[31m-import 'package:flutter/cupertino.dart';[m
+ import 'package:flutter/material.dart';[m
+ [m
+ class VerifyEmailView extends StatefulWidget {[m
+[36m@@ -17,17 +16,17 @@[m [mclass _VerifyEmailViewState extends State<VerifyEmailView> {[m
+         title: const Text('Verify email'),[m
+       ),[m
+       body: Column([m
+[31m-          children: [[m
+[32m+[m[32m        children: [[m
+           const Text('Please verify your email '),[m
+           TextButton([m
+             onPressed: () async {[m
+               final user = FirebaseAuth.instance.currentUser;[m
+               await user?.sendEmailVerification();[m
+             },[m
+[31m-             child: const Text('Send email verification'),[m
+[31m-             )[m
+[32m+[m[32m            child: const Text('Send email verification'),[m
+[32m+[m[32m          )[m
+         ],[m
+[31m-        ),[m
+[32m+[m[32m      ),[m
+     );[m
+   }[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
