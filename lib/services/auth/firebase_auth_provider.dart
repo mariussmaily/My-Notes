@@ -13,10 +13,12 @@ class FirebaseAuthProvider implements AuthProvider {
     required String password,
   }) async {
     try {
-      FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: 'gdriveciclo@gmail.com',
+            password: password,
+          )
+          .then((value) => print(value));
       final user = currentUser;
       if (user != null) {
         return user;

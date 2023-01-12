@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '592013171584',
     projectId: 'mynotes-razvan',
     storageBucket: 'mynotes-razvan.appspot.com',
-    iosClientId: '592013171584-8vl9ppusu8c7f0n1puhf531juom6ocss.apps.googleusercontent.com',
+    iosClientId:
+        '592013171584-8vl9ppusu8c7f0n1puhf531juom6ocss.apps.googleusercontent.com',
     iosBundleId: 'se.pixolity.mynotes',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '592013171584',
     projectId: 'mynotes-razvan',
     storageBucket: 'mynotes-razvan.appspot.com',
-    iosClientId: '592013171584-8vl9ppusu8c7f0n1puhf531juom6ocss.apps.googleusercontent.com',
+    iosClientId:
+        '592013171584-8vl9ppusu8c7f0n1puhf531juom6ocss.apps.googleusercontent.com',
     iosBundleId: 'se.pixolity.mynotes',
   );
 }
